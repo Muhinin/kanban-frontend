@@ -12,7 +12,7 @@
         display: flex;
         gap: 4px;
         padding: 16px;
-        color: white;
+        height: 25px;
         font-size: 16px;
     }
 
@@ -23,7 +23,15 @@
         padding: 16px;
         gap: 8px;
         overflow-y: scroll;
-        height: calc(100% - 51px);
+        height: calc(100% - 57px - 32px);
+        &::-webkit-scrollbar {
+            width: 6px;
+            background-color: transparent
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: lightblue;
+        }
+
     }
 
     &__counter {
