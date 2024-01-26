@@ -1,0 +1,49 @@
+.kanban-column {
+    &__container {
+        position: relative;
+        border: 1px solid lightblue;
+        width: 340px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    &__header {
+        background-color: lightblue;
+        display: flex;
+        gap: 4px;
+        padding: 16px;
+        color: white;
+        font-size: 16px;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        color: lightblue;
+        padding: 16px;
+        gap: 8px;
+        overflow-y: scroll;
+        height: calc(100% - 51px);
+    }
+
+    &__counter {
+        color: lightblue;
+    }
+}
+
+.centered {
+    justify-content: center;
+    align-items: center;
+}
+
+.dragging-mask {
+    position: absolute;
+    width: 340px;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
+}
+
+.not-display {
+    display: none;
+}
