@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import { getEmptyImage } from "react-dnd-html5-backend";
-import { Divider } from "@mui/material";
+import { Avatar } from "@mui/material";
 import { useDrag } from "react-dnd";
 
 import { taskStatus, taskType } from "../types/types";
@@ -13,20 +13,28 @@ interface IKanbanCard {
   onDragStart: (
     e: React.DragEvent<HTMLDivElement>,
     column: taskStatus,
-    task: taskType,
+    task: taskType
   ) => void;
   onDragEnd: () => void;
   onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
   onDrop: (
     e: React.DragEvent<HTMLDivElement>,
     column: taskStatus,
-    task: taskType,
+    task: taskType
   ) => void;
   column: taskStatus;
   onClick?: (id: number) => void;
 }
 
-const KanbanCard: React.FC<IKanbanCard> = ({ task, onDragEnd, onDragOver, onDragStart, onDrop, column, onClick }) => {
+const KanbanCard: React.FC<IKanbanCard> = ({
+  task,
+  onDragEnd,
+  onDragOver,
+  onDragStart,
+  onDrop,
+  column,
+  onClick,
+}) => {
   const dragStartHandle = (e: React.DragEvent<HTMLDivElement>) => {
     onDragStart(e, column, task);
   };
@@ -46,7 +54,12 @@ const KanbanCard: React.FC<IKanbanCard> = ({ task, onDragEnd, onDragOver, onDrag
   }, []);
 
   return (
-    <div ref={dragPreview} className={`kanban-card__${isDragging ? "drag-preview-active" : "drag-preview"}`}>
+    <div
+      ref={dragPreview}
+      className={`kanban-card__${
+        isDragging ? "drag-preview-active" : "drag-preview"
+      }`}
+    >
       <div
         ref={drag}
         style={{ opacity: isDragging ? 0 : 1 }}
@@ -58,19 +71,19 @@ const KanbanCard: React.FC<IKanbanCard> = ({ task, onDragEnd, onDragOver, onDrag
         onClick={handleCardClick}
         draggable
       >
-        <div className="kanban-card__title">
-          {task.title}
-        </div>
+        <div className="kanban-card__title">{task.title}</div>
         <div className="kanban-card__content">
           <div className="kanban-card__subtitle-container">
-            <Divider orientation="vertical" flexItem />
-            <p className="kanban-card__user-name">{task.executor?.name || "No executor"}</p>
+              <Avatar
+                src={task.executor?.imageUrl && require(`../assets/images/${task.executor?.imageUrl}`)}
+              />
+            <p className="kanban-card__user-name">
+              {task.executor?.name || "No executor"}
+            </p>
           </div>
           <div className="kanban-card__info-block">
             <div className="kanban-card__duration-section">
-              <p>
-                {task?.date}
-              </p>
+              <p>{task?.date}</p>
             </div>
           </div>
         </div>

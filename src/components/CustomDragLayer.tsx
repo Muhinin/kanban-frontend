@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 
 import { useDragLayer } from "react-dnd";
-import { Divider } from "@mui/material";
+import { Avatar, Divider } from "@mui/material";
 
 import { getCustomDragLayerStyles } from "../helpers/helpers";
 import "./KanbanCard.scss";
@@ -15,12 +15,14 @@ const layerStyles: CSSProperties = {
 };
 
 const CustomDragLayer: React.FC = () => {
-  const { isDragging, item, initialOffset, currentOffset } = useDragLayer((monitor) => ({
-    item: monitor.getItem(),
-    isDragging: monitor.isDragging(),
-    initialOffset: monitor.getInitialClientOffset(),
-    currentOffset: monitor.getSourceClientOffset(),
-  }));
+  const { isDragging, item, initialOffset, currentOffset } = useDragLayer(
+    (monitor) => ({
+      item: monitor.getItem(),
+      isDragging: monitor.isDragging(),
+      initialOffset: monitor.getInitialClientOffset(),
+      currentOffset: monitor.getSourceClientOffset(),
+    })
+  );
 
   if (!isDragging || !item) return null;
 
@@ -36,14 +38,19 @@ const CustomDragLayer: React.FC = () => {
           <div className="kanban-card__title">{item.title}</div>
           <div className="kanban-card__content">
             <div className="kanban-card__subtitle-container">
-              <Divider orientation="vertical" flexItem />
+              <Avatar
+                src={
+                  item.executor?.imageUrl &&
+                  require(`../assets/images/${item.executor?.imageUrl}`)
+                }
+              />
               <p className="kanban-card__user-name">
                 {item.executor?.name || "No executor"}
               </p>
             </div>
             <div className="kanban-card__info-block">
               <div className="kanban-card__duration-section">
-                <p>{item.start_date}</p>
+                <p>{item?.date}</p>
               </div>
             </div>
           </div>
